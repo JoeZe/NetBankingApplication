@@ -20,7 +20,7 @@ namespace NetBankingApplication
                 DOB = "09/12/1993"
             };
             BankBL bankBL = new BankBL();
-            BankBL.Register(customer);
+            Console.WriteLine(BankBL.Register(customer));
             
             CheckingAccount account = new CheckingAccount();
             BankBL.OpenAccount(customer, account);

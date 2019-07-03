@@ -14,7 +14,7 @@ namespace DAL
         public static List<Account> account = new List<Account>();
         public static List<Customer> customers = new List<Customer>();
 
-        public void Register(Customer newCustomer)
+        public string Register(Customer newCustomer)
         {
             try
             {
@@ -38,6 +38,7 @@ namespace DAL
                 {
                     customers.Add(newCustomer);
                 }
+                return "Successfully adding the new customer!";
             }
             catch (Exception)
             {

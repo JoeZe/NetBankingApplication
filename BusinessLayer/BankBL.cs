@@ -12,11 +12,11 @@ namespace BusinessLayer
     {
         static BankDAL accountDal = new BankDAL();
 
-        public static void Register(Customer newCustomer)
+        public static string Register(Customer newCustomer)
         {
             try
             {
-                accountDal.Register(newCustomer);
+                return accountDal.Register(newCustomer);
             }
             catch (Exception)
             {
@@ -114,6 +114,7 @@ namespace BusinessLayer
             string cust = Console.ReadLine();
             if (cust.Equals("New Customer", StringComparison.OrdinalIgnoreCase))
             {
+                StringBuilder sb = new StringBuilder();
                 Console.WriteLine("What is your first name?");
                 string firstName = Console.ReadLine();
                 Console.WriteLine("What is your last name?");
@@ -123,9 +124,9 @@ namespace BusinessLayer
                 Console.WriteLine("What is your Email?");
                 string email = Console.ReadLine();
                 Customer custm = new Customer(firstName, lastName, dob, email);
-                Register(custm);
+                sb.AppendLine(Register(custm));
                 OpenSelectedAccount(custm);
-                return "Success!";
+                return sb.ToString();
 
             }
             else if (cust.Equals("Old Customer", StringComparison.OrdinalIgnoreCase))
