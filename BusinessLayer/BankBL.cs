@@ -10,13 +10,19 @@ namespace BusinessLayer
 {
     public class BankBL
     {
-        static BankDAL accountDal = new BankDAL();
+        static BankDAL accountDal;
 
-        public static string Register(Customer newCustomer)
+        public BankBL()
+        {
+            accountDal = new BankDAL();
+
+        }
+
+        public static void Register(Object newCustomer)
         {
             try
             {
-                return accountDal.Register(newCustomer);
+                accountDal.Register(newCustomer);
             }
             catch (Exception)
             {
@@ -29,23 +35,12 @@ namespace BusinessLayer
             accountDal.OpenNewAccount(customer, accountType); 
         }
 
-        public static string ClosedAccount(int accountNum)
+        public static void ClosedAccount(int accountNum)
         {
+            //accountDal.ClosedAccount(accountNum);
             try
             {
-                return accountDal.CloasedAccount(accountNum);
-            }
-            catch(Exception)
-            {
-                throw;
-            }
-        }
-
-        public static string Deposit(int accountNum, double depositeAmount)
-        {
-            try
-            {
-                return accountDal.Deposit(accountNum, depositeAmount);
+                accountDal.ClosedAccount(accountNum);
             }
             catch (Exception)
             {
@@ -53,22 +48,11 @@ namespace BusinessLayer
             }
         }
 
-        public static string Transfer(int accountNumFrom, int accountNumTo, double amount)
-        {
-            return accountDal.Transfer(accountNumFrom, accountNumTo, amount);
-        }
-
-        public static string PayLoan(int accountNumFrom, int LoanAccountNum, double amount)
-        {
-            return accountDal.PayLoan(accountNumFrom, LoanAccountNum, amount);
-        }
-
-        //withdraw money form the account number
-        public static string Withdraw(int accountNum, double withDrawAmount)
+        public static void Deposit(int accountNum, double depositeAmount)
         {
             try
             {
-                return accountDal.Withdraw(accountNum, withDrawAmount);
+                accountDal.Deposit(accountNum, depositeAmount);
             }
             catch (Exception)
             {
@@ -76,14 +60,36 @@ namespace BusinessLayer
             }
         }
 
-        public static string DisplayListAccount()
+        public static void Transfer(int accountNumFrom, int accountNumTo, double amount)
         {
-            return accountDal.DisplayListAccount();
+            accountDal.Transfer(accountNumFrom, accountNumTo, amount);
         }
 
-        public static string DisplayTranction(int accountNum)
+        public static void PayLoan(int accountNumFrom, int LoanAccountNum, double amount)
         {
-            return accountDal.DisplayTranction(accountNum);
+            accountDal.PayLoan(accountNumFrom, LoanAccountNum, amount);
+        }
+
+        public static void Withdraw(int accountNum, double withDrawAmount)
+        {
+            try
+            {
+                accountDal.Withdraw(accountNum, withDrawAmount);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static void DisplayListAccount()
+        {
+            accountDal.DisplayListAccount();
+        }
+
+        public static void DisplayTranction(int accountNum)
+        {
+            accountDal.DisplayTranction(accountNum);
         }
 
         public static Customer LookForCustomer(int customerID)
@@ -93,7 +99,7 @@ namespace BusinessLayer
             {
                 if (customer != null)
                 {
-                    return customer;
+                    return customer as Customer;
                 }
                 else
                 {
@@ -108,13 +114,12 @@ namespace BusinessLayer
             
         }
 
-        public static string CustomerOptions()
+        public static void CustomerOptions()
         {
             Console.WriteLine("Are you a New Customer or Old Customer?");
             string cust = Console.ReadLine();
             if (cust.Equals("New Customer", StringComparison.OrdinalIgnoreCase))
             {
-                StringBuilder sb = new StringBuilder();
                 Console.WriteLine("What is your first name?");
                 string firstName = Console.ReadLine();
                 Console.WriteLine("What is your last name?");
@@ -124,14 +129,13 @@ namespace BusinessLayer
                 Console.WriteLine("What is your Email?");
                 string email = Console.ReadLine();
                 Customer custm = new Customer(firstName, lastName, dob, email);
-                sb.AppendLine(Register(custm));
+                Register(custm);
                 OpenSelectedAccount(custm);
-                return sb.ToString();
 
             }
             else if (cust.Equals("Old Customer", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("Type your option: open new account, transcation, or get account information.");
+                Console.WriteLine("Type your option: open new account, transcation, close account, display transcation or Display list of account.");
                 string option = Console.ReadLine();
 
                 if (option.Equals("open new account"))
@@ -140,36 +144,42 @@ namespace BusinessLayer
                     int customerID = Convert.ToInt32(Console.ReadLine());
                     //Console.WriteLine(customerID);
                     OpenSelectedAccount(LookForCustomer(customerID));
-                    return "Success!";
                 }
                 else if (option.Equals("transcation", StringComparison.OrdinalIgnoreCase))
                 {
-                    return DoTranscation();
+                    DoTranscation();
                 }
-                else if (option.Equals("Get account information", StringComparison.OrdinalIgnoreCase))
+                else if (option.Equals("Display transcation", StringComparison.OrdinalIgnoreCase))
                 {
-                    return GetInfor();
+                    GetInfor();
+                }
+                else if (option.Equals("Display list of account", StringComparison.OrdinalIgnoreCase))
+                {
+                    DisplayListAccount();
+                }
+                else if (option.Equals("close account", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("What is your account number?");
+                    int accountNum = Convert.ToInt32(Console.ReadLine());
+                    ClosedAccount(accountNum);
                 }
                 else
                 {
-                    return ("Invalid option!");
+                    Console.WriteLine("Invalid option!");
                 }
 
             }
             else
             {
-                return "Please type your are a new customer or old customer!";
+                Console.WriteLine("Please type your are a new customer or old customer!");
             }
         }
 
-        public static string GetInfor()
+        public static void GetInfor()
         {
-            StringBuilder sb = new StringBuilder();
             Console.WriteLine("What is your account number?");
             int accountNum = Convert.ToInt32(Console.ReadLine());
-            sb.AppendLine(DisplayTranction(accountNum));
-            sb.AppendLine(DisplayListAccount());
-            return sb.ToString();
+            DisplayTranction(accountNum);
         }
 
         public static void OpenSelectedAccount(Customer customer)
@@ -203,7 +213,7 @@ namespace BusinessLayer
 
         }
 
-        public static string DoTranscation()
+        public static void DoTranscation()
         {
             Console.WriteLine("Type your option: deposit, widthdraw, pay loan, or transfer!");
             string option = Console.ReadLine();
@@ -214,12 +224,12 @@ namespace BusinessLayer
 
             if (option.Equals("deposit", StringComparison.OrdinalIgnoreCase))
             {
-                return Deposit(accountNum, amount);
+                Deposit(accountNum, amount);
 
             }
             else if (option.Equals("widthdraw", StringComparison.OrdinalIgnoreCase))
             {
-                return Withdraw(accountNum, amount);
+                Withdraw(accountNum, amount);
             }
             else if (option.Equals("pay loan", StringComparison.OrdinalIgnoreCase))
             {
@@ -227,7 +237,7 @@ namespace BusinessLayer
                 {
                     Console.WriteLine("What is your loan account number you want to pay to?");
                     int loanAccountNum = Convert.ToInt32(Console.ReadLine());
-                    return PayLoan(accountNum, loanAccountNum, amount);
+                    PayLoan(accountNum, loanAccountNum, amount);
                 }
                 catch (Exception)
                 {
@@ -239,11 +249,11 @@ namespace BusinessLayer
             {
                 Console.WriteLine("What is the account number that you want to transfer to?");
                 int accountNumTo = Convert.ToInt32(Console.ReadLine());
-                return Transfer(accountNum, accountNumTo, amount);
+                Transfer(accountNum, accountNumTo, amount);
             }
             else
             {
-                return("Invlaid option!");
+                Console.WriteLine("Invlaid option!");
             }
 
         }//do transcation

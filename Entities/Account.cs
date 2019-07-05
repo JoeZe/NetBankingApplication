@@ -12,10 +12,11 @@ namespace Entities
         public int AccountNum { get; set; }
         public double Balance { get; set; }
         public static int count = 10000;
-        public Dictionary<ITransaction, double> Transcation { get; set; }
+        public List<Transaction> Transcation { get; set; }
         public bool IsActive { get; set; }
         public abstract void PrintInfor();
-
+        public abstract void Deposit(int accountNum, double amount);
+        public abstract void Withdraw(int accountNum, double amount);
 
     }
 }

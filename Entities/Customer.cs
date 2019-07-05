@@ -14,7 +14,7 @@ namespace Entities
         public string DOB { set; get; }
         public string Email { set; get; }
         public static int GenerateID=100;
-        public List <Account> accounts { set; get; }
+        public List <Account> account { set; get; }
 
         public Customer()
         {

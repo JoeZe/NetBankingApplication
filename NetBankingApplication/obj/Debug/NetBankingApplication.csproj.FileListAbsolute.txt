@@ -12,6 +12,10 @@ C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\obj\Debug\
 C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\obj\Debug\NetBankingApplication.pdb
 C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\DAL.dll
 C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\DAL.pdb
+C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\EntityFramework.dll
+C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\EntityFramework.xml
+C:\Users\Joe\source\repos\NetBankingApplication\NetBankingApplication\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Joe\Desktop\NetBankingApplication\NetBankingApplication\bin\Debug\NetBankingApplication.exe.config
 C:\Users\Joe\Desktop\NetBankingApplication\NetBankingApplication\bin\Debug\NetBankingApplication.exe
 C:\Users\Joe\Desktop\NetBankingApplication\NetBankingApplication\bin\Debug\NetBankingApplication.pdb

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entities;
 using BusinessLayer;
 
+
 namespace NetBankingApplication
 {
     class Program
@@ -20,57 +21,62 @@ namespace NetBankingApplication
                 DOB = "09/12/1993"
             };
             BankBL bankBL = new BankBL();
-            Console.WriteLine(BankBL.Register(customer));
-            
+            BankBL.Register(customer);
+
             CheckingAccount account = new CheckingAccount();
             BankBL.OpenAccount(customer, account);
             account.PrintInfor();
-            Console.WriteLine(BankBL.Deposit(account.AccountNum, 300.0));
+            BankBL.Deposit(account.AccountNum, 300.0);
 
             BusinessAccount ba = new BusinessAccount();
             BankBL.OpenAccount(customer, ba);
             ba.PrintInfor();
-            Console.WriteLine(BankBL.Deposit(ba.AccountNum, 500.0));
+            BankBL.Deposit(ba.AccountNum, 500.0);
 
-            Console.WriteLine(BankBL.DisplayListAccount());
+            BankBL.DisplayListAccount();
 
-            Console.WriteLine(BankBL.Withdraw(account.AccountNum, 100.0));
-            Console.WriteLine(BankBL.Withdraw(ba.AccountNum, 300.0));
+            BankBL.Withdraw(account.AccountNum, 100.0);
+            BankBL.Withdraw(ba.AccountNum, 300.0);
 
-            Console.WriteLine(BankBL.DisplayListAccount());
+            BankBL.DisplayListAccount();
 
-            Console.WriteLine(BankBL.DisplayTranction(10000));
-            Console.WriteLine(BankBL.DisplayTranction(ba.AccountNum));
+            BankBL.DisplayTranction(10000);
+            BankBL.DisplayTranction(ba.AccountNum);
 
-            Console.WriteLine(BankBL.Transfer(account.AccountNum,ba.AccountNum, 100.0));
-            Console.WriteLine(BankBL.DisplayListAccount());
+            BankBL.Transfer(account.AccountNum, ba.AccountNum, 100.0);
+            BankBL.DisplayListAccount();
 
 
-            Console.WriteLine(BankBL.Withdraw(ba.AccountNum, 400.0));
+            BankBL.Withdraw(ba.AccountNum, 400.0);
 
-            Console.WriteLine(BankBL.DisplayListAccount());
-            Console.WriteLine(BankBL.PayLoan(10000, 10002, 50.0));
+            BankBL.DisplayListAccount();
+            BankBL.PayLoan(10000, 10002, 50.0);
 
-            Console.WriteLine(BankBL.DisplayListAccount());
+            BankBL.DisplayListAccount();
 
             TermDeposit tp = new TermDeposit();
             tp.PrintInfor();
             BankBL.OpenAccount(customer, tp);
-            Console.WriteLine(BankBL.Deposit(10003, 2000));
-            tp.termEnded= true;
-            Console.WriteLine(BankBL.Withdraw(10003, 2000));
+            //BankBL.Deposit(10003, 2000);
+           // tp.termEnded = true;
+            //BankBL.Withdraw(10003, 2000);
 
-            Console.WriteLine(BankBL.ClosedAccount(tp.AccountNum));
-            Console.WriteLine(BankBL.DisplayListAccount());
+            BankBL.ClosedAccount(tp.AccountNum);
+            BankBL.DisplayListAccount();
 
 
             try
             {
-                Console.WriteLine(BankBL.CustomerOptions());
-            }catch(Exception ex)
+                while (true)
+                {
+                    BankBL.CustomerOptions();
+                }
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error! " + ex.Message);
             }
+
         }
 
     }//class
